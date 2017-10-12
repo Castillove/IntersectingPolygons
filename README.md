@@ -25,4 +25,4 @@ Given n sets, their intersection is the set of points
 that are in all of the sets  
 Projective duality: y + ax + b = 0 <=> (a, b)
 
-Tools:
+Language to be implemented in: Java
