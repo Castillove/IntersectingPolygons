@@ -1,5 +1,8 @@
 package backend;
 
+import java.awt.Color;
+import com.upokecenter.numbers.ERational;
+
 public class Geometry {
     private Geometry() {
 	assert false : "Don't construct this";
@@ -12,5 +15,10 @@ public class Geometry {
     }
     public static boolean incident(Point p, Line l) {
 	return(p.x.Multiply(l.m).Add(l.b).Subtract(p.y).isZero());
+    }
+    public static Line connection(Point p, Point q, Color c) {
+	ERational m = p.y.Subtract(q.y).Divide(p.x.Subtract(q.x));
+	ERational b = p.y.Subtract(p.x.Multiply(m));
+	return new Line(m, b, c);
     }
 }
