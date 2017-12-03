@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Polylines {
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    private final List<IPoint> blue = new ArrayList(), green = new ArrayList();
+    private final List<IPoint> blue = new ArrayList<IPoint>(), green = new ArrayList<IPoint>();
     private Set<Point> cans = null;
     public void addPoint(boolean blue, int x, int y)
 	    throws CollinearPointException, VerticalPointsException {
