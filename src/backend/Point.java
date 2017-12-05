@@ -4,7 +4,7 @@ import java.awt.Color;
 import com.sun.istack.internal.NotNull;
 import com.upokecenter.numbers.ERational;
 
-public class Point {
+public class Point implements Comparable<Point> {
     public final @NotNull ERational x, y;
     public final @NotNull Color c;
     public Point(ERational x, ERational y, Color c) {
@@ -16,9 +16,8 @@ public class Point {
     public int hashCode() {
 	final int prime = 31;
 	int result = 1;
-	result = prime * result + ((c == null) ? 0 : c.hashCode());
-	result = prime * result + ((x == null) ? 0 : x.hashCode());
 	result = prime * result + ((y == null) ? 0 : y.hashCode());
+	result = prime * result + ((x == null) ? 0 : x.hashCode());
 	return result;
     }
     @Override
@@ -30,7 +29,14 @@ public class Point {
 	if(getClass() != obj.getClass())
 	    return false;
 	Point that = (Point) obj;
-	return(this.x.equals(that.x) && this.c.equals(that.c)
+	return(this.x.equals(that.x) 
 		&& this.y.equals(that.y));
+    }
+    @Override
+    public int compareTo(Point o) {
+	int a = x.compareTo(o.x);
+	if(a != 0)
+	    return(a);
+	return(y.compareTo(o.y));
     }
 }
