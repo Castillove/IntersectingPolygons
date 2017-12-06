@@ -46,13 +46,13 @@ public class Geometry {
 	return new Line(p.m, p.b.Negate(), p.c);
     }
     
-    public static List<Point> lowerHull(Set<Point> input) {
-	List<Point> ans = new ArrayList<Point>();	
-	PriorityQueue<Point> pull = new PriorityQueue<Point>(input);
+    public static <T extends Point> List<T> lowerHull(Set<T> input) {
+	List<T> ans = new ArrayList<T>();	
+	PriorityQueue<T> pull = new PriorityQueue<T>(input);
 	ans.set(0, pull.poll());
 	int i = 0;
 	while(!pull.isEmpty()) {
-	    Point p = pull.poll();
+	    T p = pull.poll();
 	    ans.add(p);
 	    i++;
 	    while(i > 2 && Geometry.isLeftTurn(ans.get(i - 2), ans.get(i - 1), p) < 0)
