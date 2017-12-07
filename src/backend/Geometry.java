@@ -8,7 +8,21 @@ import java.util.Set;
 
 import com.upokecenter.numbers.ERational;
 
+/*
+ * Class representing the geometry functions used in the project
+ * 
+ * Geometry(): false constructor
+ * dualize(Line l): dualizes the given line into a point
+ * dualize(Point p): dualizes the given point into a line
+ * incident(Point p, Line l): returns true if p is on the line l
+ * connection(Point p, Point q, Color c): returns a line based on p and q
+ * isLeftTurn(Point p, Point q, Point r): compares relation of given points to determine whether added the point results in a left turn
+ * spin(Point p): returns the point's opposite (-x, -y)
+ * spin(Line p): shifts the line to have a y-intercept of -b
+ * lowerHull(Set<Point> input): returnd the list of points that make up the lower hull
+ * */
 public class Geometry {
+
     private Geometry() {
 	assert false : "Don't construct this";
     }
@@ -49,13 +63,12 @@ public class Geometry {
     public static <T extends Point> List<T> lowerHull(Set<T> input) {
 	List<T> ans = new ArrayList<T>();	
 	PriorityQueue<T> pull = new PriorityQueue<T>(input);
-	ans.set(0, pull.poll());
-	int i = 0;
+	int i = -1;
 	while(!pull.isEmpty()) {
 	    T p = pull.poll();
 	    ans.add(p);
 	    i++;
-	    while(i > 2 && Geometry.isLeftTurn(ans.get(i - 2), ans.get(i - 1), p) < 0)
+	    while(i >= 2 && Geometry.isLeftTurn(ans.get(i - 2), ans.get(i - 1), p) < 0)
 		ans.remove(--i);
 	}
 	return(ans);
