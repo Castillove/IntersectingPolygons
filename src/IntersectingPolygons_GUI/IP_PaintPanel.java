@@ -17,8 +17,13 @@ import javax.swing.SwingUtilities;
  * Both visualizes and stores what the user has input in.
  * */
 public class IP_PaintPanel extends JPanel{
+<<<<<<< HEAD
 	
 	
+=======
+
+    private static final long serialVersionUID = 8707370172829820635L;
+>>>>>>> branch 'master' of https://github.com/Castillove/IntersectingPolygons.git
 	ArrayList<Point> prevPaintedPoints;
 	ArrayList<Point> paintedPoints;
 	Color polygonColor;

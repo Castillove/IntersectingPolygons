@@ -23,7 +23,8 @@ import backend.Geometry;
  * Visualizing said concepts.
  * */
 public class IP_PaintDual extends JPanel{
-	
+
+    private static final long serialVersionUID = 2533222926501067150L;
 	ArrayList<Line> blueLines;
 	ArrayList<Line> greenLines;
 	ArrayList<Line> lowerHullLines;
@@ -163,6 +164,7 @@ public class IP_PaintDual extends JPanel{
 	 * */
 	private ArrayList<Line> makePolygonLines(List<Point> pointList){
 		ArrayList<Line> polygon = new ArrayList<Line>();
+<<<<<<< HEAD
 		for(int i=1; i<pointList.size(); i++){	
 			Point p1 = pointList.get(i-1);
 			Point p2 = pointList.get(i);
@@ -172,6 +174,16 @@ public class IP_PaintDual extends JPanel{
 				p2 = pointList.get(i);
 				polygon.add(Geometry.connection(p1, p2, null));
 			}
+=======
+		Iterator<Point> setItr = pointSet.iterator();
+		Point prev = null;
+		Point current = null;
+		Point first = (Point) setItr.next();
+		while(setItr.hasNext()){
+			prev = (polygon.isEmpty() ? first : current);
+			current = (Point) setItr.next();
+			polygon.add(Geometry.connection(prev, current, null));
+>>>>>>> branch 'master' of https://github.com/Castillove/IntersectingPolygons.git
 		}
 		System.out.println("Number of lines stored " + polygon.size());
 		return polygon;
