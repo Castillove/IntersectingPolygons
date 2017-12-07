@@ -2,9 +2,11 @@ package backend;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.upokecenter.numbers.ERational;
 
@@ -68,9 +70,29 @@ public class Geometry {
 	    T p = pull.poll();
 	    ans.add(p);
 	    i++;
-	    while(i >= 2 && Geometry.isLeftTurn(ans.get(i - 2), ans.get(i - 1), p) < 0)
+	    while(i >= 2 && isLeftTurn(ans.get(i - 2), ans.get(i - 1), p) < 0)
 		ans.remove(--i);
 	}
 	return(ans);
+    }
+    
+    public static <T extends Point> List<Line> connections(List<T> pts) {
+	List<Line> ret = new ArrayList<Line>();
+	Point pp = null;
+	for(Point p : pts)
+	    if(pp == null)
+		pp = p;
+	    else {
+		ret.add(connection(p, pp, null));
+		pp = p;
+	    }
+	return(ret);
+    }
+    
+    public static <T extends Point> List<Point> intersectLowerHulls(Set<T> blue, Set<T> green) {
+	Set<Point> lhulls = new HashSet<Point>();
+	lhulls.addAll(connections(lowerHull(blue)).stream().map((Line a) -> dualize(a)).collect(Collectors.toSet()));
+	lhulls.addAll(connections(lowerHull(green)).stream().map((Line a) -> dualize(a)).collect(Collectors.toSet()));
+	return(connections(lowerHull(lhulls)).stream().map((Line a) -> dualize(a)).collect(Collectors.toList()));
     }
 }

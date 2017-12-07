@@ -22,7 +22,7 @@ import javax.swing.SwingConstants;
  * 		screen 3: showing intersections via dual
  * */
 public class IP_Frame extends JFrame implements ActionListener{
-	
+    private static final long serialVersionUID = -1511527241729280227L;
 	JPanel contentPane = (JPanel) getContentPane();
 	IP_PaintPanel paintBluePG;
 	IP_PaintPanel paintGreenPG;

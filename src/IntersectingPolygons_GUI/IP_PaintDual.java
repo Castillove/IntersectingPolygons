@@ -21,7 +21,8 @@ import backend.Geometry;
  * Visualizing said concepts.
  * */
 public class IP_PaintDual extends JPanel{
-	
+
+    private static final long serialVersionUID = 2533222926501067150L;
 	ArrayList<Line> blueLines;
 	ArrayList<Line> greenLines;
 	ArrayList<Point> blueDual;
@@ -78,12 +79,10 @@ public class IP_PaintDual extends JPanel{
 		Point prev = null;
 		Point current = null;
 		Point first = (Point) setItr.next();
-		int index = 0;
 		while(setItr.hasNext()){
 			prev = (polygon.isEmpty() ? first : current);
 			current = (Point) setItr.next();
 			polygon.add(Geometry.connection(prev, current, null));
-			index++;
 		}
 		polygon.add(Geometry.connection(current, first, null));
 		return polygon;
