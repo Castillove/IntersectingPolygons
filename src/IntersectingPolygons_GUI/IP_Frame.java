@@ -27,6 +27,7 @@ public class IP_Frame extends JFrame implements ActionListener{
 	IP_PaintPanel paintBluePG;
 	IP_PaintPanel paintGreenPG;
 	IP_PaintDual paintDual;
+	IP_PaintConvexHull paintCH;
 	private JLabel lInstructions;
 	private JButton bNext;
 	private int screen;
@@ -80,7 +81,7 @@ public class IP_Frame extends JFrame implements ActionListener{
 					bNext.setText("next");
 				 	paintBluePG = new IP_PaintPanel(Color.BLUE, null);
 					paintBluePG.setOpaque(false);
-					paintBluePG.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+					//paintBluePG.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 					contentPane.add(paintBluePG, BorderLayout.CENTER);
 					contentPane.validate();
 					break;
@@ -90,18 +91,27 @@ public class IP_Frame extends JFrame implements ActionListener{
 					
 				 	paintGreenPG = new IP_PaintPanel(Color.GREEN, paintBluePG.getPaintedPoints());
 					paintGreenPG.setOpaque(false);
-					paintGreenPG.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+					//paintGreenPG.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 					contentPane.add(paintGreenPG, BorderLayout.CENTER);
 					contentPane.validate();
 					break;
-			case 3: System.out.println("SHOW DUAL");
+			case 3: System.out.println("SHOW CONVEX HULLS");
+					lInstructions.setText("convex hulls of the polygons");
+					bNext.setText("next");
+					
+					paintCH = new IP_PaintConvexHull(paintBluePG.getPointList(), paintGreenPG.getPointList());
+					paintCH.setOpaque(false);
+					contentPane.add(paintCH, BorderLayout.CENTER);
+					contentPane.validate();
+					break;
+			case 4: System.out.println("SHOW DUAL");
 					lInstructions.setText("intersection via projective duality");
 					bNext.setText("reset");
 					screen=0;	//Want the "draw a polygon" screen to appear upon reset
 					
 					paintDual = new IP_PaintDual(paintBluePG.getPointList(), paintGreenPG.getPointList());
 					paintDual.setOpaque(false);
-					paintDual.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+					//paintDual.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 					contentPane.add(paintDual, BorderLayout.CENTER);
 					contentPane.validate();
 					paintDual.repaint();

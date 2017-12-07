@@ -19,7 +19,7 @@ import com.upokecenter.numbers.ERational;
  * isLeftTurn(Point p, Point q, Point r): compares relation of given points to determine whether added the point results in a left turn
  * spin(Point p): returns the point's opposite (-x, -y)
  * spin(Line p): shifts the line to have a y-intercept of -b
- * lowerHull(Set<Point> input): returnd the list of points that make up the lower hull
+ * lowerHull(Set<Point> input): return the list of points that make up the lower hull
  * */
 public class Geometry {
 
@@ -28,11 +28,11 @@ public class Geometry {
     }
     
     public static Point dualize(Line l) {
-	return new Point(l.m, l.b.Negate(), l.c);
+	return new Point(l.m.Multiply(ERational.Create(1, 2)), l.b.Negate(), l.c);
     }
     
     public static Line dualize(Point p) {
-	return new Line(p.x, p.y.Negate(), p.c);
+	return new Line(p.x.Multiply(ERational.Create(2, 1)), p.y.Negate(), p.c);
     }
     
     public static boolean incident(Point p, Line l) {

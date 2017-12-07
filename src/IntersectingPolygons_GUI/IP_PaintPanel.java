@@ -17,10 +17,12 @@ import javax.swing.SwingUtilities;
  * Both visualizes and stores what the user has input in.
  * */
 public class IP_PaintPanel extends JPanel{
+	
+	
 	ArrayList<Point> prevPaintedPoints;
 	ArrayList<Point> paintedPoints;
 	Color polygonColor;
-	int index, caseNum;
+	int index, caseNum, x_midDist, y_midDist;
 	boolean showPoints;
 	
 	/*[CONSTRUCTOR] IP_PaintPanel(Color c, ArrayList<Point> p):
@@ -30,6 +32,9 @@ public class IP_PaintPanel extends JPanel{
 	 * 			points to visualize.
 	 * */
 	public IP_PaintPanel(Color c, ArrayList<Point> p){
+		x_midDist = getWidth()/2;
+		y_midDist = getHeight()/2;
+		
 		polygonColor = (c != null ? c : Color.RED);
 		prevPaintedPoints = (p != null ? p : null);
 		paintedPoints = new ArrayList<Point>();
@@ -50,22 +55,27 @@ public class IP_PaintPanel extends JPanel{
 					showPoints = !showPoints;
 					repaint();
 				}else if(showPoints){	//On left clicks, a point is being checked and stored
-					caseNum = 1;
-					storePoint(e.getX(), e.getY());
+					Point plotPoint = transformPoint(new Point(e.getX(), e.getY()));
+					caseNum = 3;
+					storePoint(plotPoint.x, plotPoint.y);
+					repaint();
+					//repaint(e.getX(), e.getY(), 5, 5);
+					//repaint(plotPoint.x+5, plotPoint.y+5, 5, 5);
 				}
 			}
 		});
 	}
 	
 	/*Translates a point from the normal coordinate plane to the java coordinate plane;
-	 * (Unused so disabled)
-	 * private Point transformPoint(Point p){
+	 *
+	 */ 
+	private Point transformPoint(Point p){
 		//System.out.println("width " + getWidth()/2 + " and height " + getHeight()/2);
-		int newX = (getWidth()/2 - p.x) * -1;
-		int newY = getHeight()/2 - p.y;
+		int newX = (p.x-getWidth()/2);
+		int newY = (p.y-getHeight()/2) * -1;
 		Point newPt = new Point(newX, newY);
 		return newPt;
-	}*/
+	}
 	
 	/* storePoint(int x, int y):
 	 * [Checks the points for any errors- yet to be implemented]
@@ -75,7 +85,8 @@ public class IP_PaintPanel extends JPanel{
 		System.out.println("ADDED POINT " + index + 
 				" (" + paintedPoints.get(index).x  + "," 
 				+ paintedPoints.get(index).y + ")");
-		repaint(x, y, 5, 5);		
+		index++;
+		//repaint(x, y, 5, 5);		
 	}
 	
 	/* drawNewPoint(Graphics2D g2d, ArrayList<Point> currPG):
@@ -136,7 +147,10 @@ public class IP_PaintPanel extends JPanel{
 	public void paintComponent(Graphics g){
 		Graphics2D g2d = (Graphics2D) g; 
 		super.paintComponent(g2d); 
-				
+		
+		g2d.translate(getWidth()/2, getHeight()/2);
+		g2d.scale(1,-1);
+		
 		switch(caseNum){
 			case 1: drawNewPoint(g2d, paintedPoints);	//Left click: adding a new point
 					caseNum = 0;
@@ -149,9 +163,12 @@ public class IP_PaintPanel extends JPanel{
 					drawPolygon(g2d, paintedPoints, showPoints);
 					caseNum = 0;
 					break;
+			
 				
 		}
 		
+		g2d.scale(1,-1);
+		//g2d.translate(0, 0);
 		
 	}
 	
