@@ -3,7 +3,7 @@ import com.sun.istack.internal.NotNull;
 import com.upokecenter.numbers.ERational;
 import java.awt.Color;
 
-public class Line {
+public class Line implements Comparable<Line> {
     public final @NotNull ERational m, b;
     public final @NotNull Color c;
     public Line(ERational m, ERational b, Color c) {
@@ -16,7 +16,6 @@ public class Line {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result + ((b == null) ? 0 : b.hashCode());
-	result = prime * result + ((c == null) ? 0 : c.hashCode());
 	result = prime * result + ((m == null) ? 0 : m.hashCode());
 	return result;
     }
@@ -29,8 +28,14 @@ public class Line {
 	if(getClass() != obj.getClass())
 	    return false;
 	Line that = (Line)obj;
-	return(this.b.equals(that.b) && this.c.equals(that.c)
+	return(this.b.equals(that.b) 
 		&& this.m.equals(that.m));
     }
-
+    @Override
+    public int compareTo(Line o) {
+	int a = m.compareTo(o.m);
+	if(a != 0)
+	    return(a);
+	return(b.compareTo(o.b));
+    }
 }
